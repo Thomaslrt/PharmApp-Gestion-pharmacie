@@ -13,8 +13,14 @@
 <link href="assets/css/main.css" rel="stylesheet">
 <!-- Swift Themes. You can choose a theme from css/themes instead of get all themes -->
 <link href="assets/css/themes/all-themes.css" rel="stylesheet" />
-</head>
+<link href="assets/plugins/dropzone/dropzone.css" rel="stylesheet">
+<link href="assets/plugins/waitme/waitMe.css" rel="stylesheet" />
+<script src="app.js"></script>
+<!-- Commencement du script -->
+<script>
 
+</script>
+</head>
 <body class="theme-cyan">
 <!-- Page Loader -->
 <div class="page-loader-wrapper">
@@ -149,7 +155,7 @@
                 <h5></h5>
                 <ul>
                     <li><span>0<i>Médicaments</i></span></li>
-                    <li><span>0<i>client</i></span></li>
+                    <li><span>0<i>Clients</i></span></li>
                     <li><span>0<i>Fournisseur</i></span></li>
                 </ul>
             </div>
@@ -160,10 +166,10 @@
             <ul class="list">
                 <li class="header">Navigation</li>
                 <li class="active open"><a href="index.html"><i class="zmdi zmdi-home"></i><span>Accueil</span></a></li>
-                <li class="active open"><a href="#"><i class="zmdi zmdi-home"></i><span>Tableau de bord</span></a></li>                                               
+                <li class="open"><a href="#"><i class="zmdi zmdi-home"></i><span>Tableau de bord</span></a></li>                                               
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-calendar-check"></i><span>Médicaments</span> </a>
                     <ul class="ml-menu">
-                        <li><a href="doctor-schedule.html">Ajouter un médicament </a></li>
+                        <li id="add_med"><a id="add_med">Ajouter un médicament </a></li>
                         <li><a href="book-appointment.html">Modifier un médicament</a></li>
                         <li><a href="book-appointment.html">Liste des produits</a></li>
                     </ul>
@@ -355,7 +361,7 @@
     <!-- #END# Right Sidebar --> 
 </section>
 
-<section class="content home">
+<section class="content home pageprincipale">
     <div class="container-fluid gr100">
         <div class="block-header">
             <h2>Tableau de bord</h2>
@@ -542,6 +548,59 @@
         </div>                           
     </div>
 </section>
+<section class="content medicament" style="display:none;">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Ajouter un médicament</h2>
+            <small class="text-muted">Ajouter un médicament à la liste</small>
+        </div>
+        <div class="row clearfix">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<h2>Enregistrement d'un médicament</h2>
+                        <small class="text-muted">Merci de rentrer le nom d'un médicament et sa quantité disponible pour l'ajouter.</small> 					
+					</div>
+					<div class="body">
+                        <div class="row clearfix">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="ajouter_med" placeholder="Nom du médicament">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="ajouter_qte" placeholder="Quantité en stock">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <form action="/" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+                                    <div class="dz-message">
+                                        <div class="drag-icon-cph"> <i class="material-icons">touch_app</i> </div>
+                                        <h3>Cliquez ou déposez une image</h3>
+                                        <em>Choisissez une image au format png/jpg, ne dépassant pas 300 Mo.</em> </div>
+                                    <div class="fallback">
+                                        <input name="file" type="file" multiple />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm-12">
+                                <button type="submit" id="" class="btn btn-raised g-bg-cyan">Envoyer</button>
+                                <button type="submit" class="btn btn-raised">Annuler</button>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>        
+    </div>
+</section>
 
 <div class="color-bg"></div>
 <!-- Jquery Core Js --> 
@@ -556,5 +615,8 @@
 <script src="assets/bundles/morphingscripts.bundle.js"></script><!-- morphing search page js --> 
 <script src="assets/js/pages/index.js"></script>
 <script src="assets/js/pages/charts/sparkline.min.js"></script>
+<script src="assets/plugins/autosize/autosize.js"></script> <!-- Autosize Plugin Js --> 
+<script src="assets/plugins/momentjs/moment.js"></script> <!-- Moment Plugin Js -->
+<script src="assets/plugins/dropzone/dropzone.js"></script> <!-- Dropzone Plugin Js -->
 </body>
 </html>

@@ -89,7 +89,17 @@ function modifier(obj_name,val1,val2){
 
 
 $(document).ready(function(){
-	
-	//ici mon code principal
-	
+	var valeur_formulaire = $(".ajouter_medicament").val()
+	$()
+		alert(valeur_formulaire);
+	 
+
+
+
+	$("#add_med").click(function(){
+		$(".pageprincipale").slideUp(function(){
+			$(".medicament").slideDown();
+		});
+	});
+
 });
