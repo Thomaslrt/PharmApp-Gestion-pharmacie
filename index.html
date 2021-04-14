@@ -15,6 +15,7 @@
 <link href="assets/css/themes/all-themes.css" rel="stylesheet" />
 <link href="assets/plugins/dropzone/dropzone.css" rel="stylesheet">
 <link href="assets/plugins/waitme/waitMe.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="app.js"></script>
 <!-- Commencement du script -->
 <script>
@@ -166,33 +167,33 @@
             <ul class="list">
                 <li class="header">Navigation</li>
                 <li class="active open"><a href="index.html"><i class="zmdi zmdi-home"></i><span>Accueil</span></a></li>
-                <li class="open"><a href="#"><i class="zmdi zmdi-home"></i><span>Tableau de bord</span></a></li>                                               
+                <li class="open" data-nom="dashboard"><a><i class="zmdi zmdi-home"></i><span>Tableau de bord</span></a></li>                                               
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-calendar-check"></i><span>Médicaments</span> </a>
                     <ul class="ml-menu">
-                        <li id="add_med"><a id="add_med">Ajouter un médicament </a></li>
-                        <li><a href="book-appointment.html">Modifier un médicament</a></li>
-                        <li><a href="book-appointment.html">Liste des produits</a></li>
+                        <li data-nom="médicament" data-method="add"><a>Ajouter un médicament </a></li>
+                        <li data-nom="médicament" data-method="mod"><a>Modifier un médicament</a></li>
+                        <li data-nom="médicament" data-method="list"><a>Liste des produits</a></li>
                     </ul>
                 </li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-account-add"></i><span>Clients</span> </a>
                     <ul class="ml-menu">
-                        <li><a href="doctors.html">Ajouter un client </a></li>
-                        <li><a href="add-doctor.html">Modifier un client</a></li>                       
-                        <li><a href="profile.html">Liste des clients</a></li>
+                        <li data-nom="client" data-method="add"><a>Ajouter un client </a></li>
+                        <li data-nom="client" data-method="mod"><a>Modifier un client</a></li>                       
+                        <li data-nom="client" data-method="list"><a>Liste des clients</a></li>
                     </ul>
                 </li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-account-o"></i><span>Employés</span> </a>
                     <ul class="ml-menu">
-                        <li><a href="patients.html">Ajouter un employé </a></li>
-                        <li><a href="add-patient.html">Modifier un employé</a></li>                       
-                        <li><a href="patient-profile.html">Liste des employés</a></li>
+                        <li data-nom="employé" data-method="add"><a>Ajouter un employé </a></li>
+                        <li data-nom="employé" data-method="mod"><a>Modifier un employé</a></li>                       
+                        <li data-nom="employé" data-method="list"><a>>Liste des employés</a></li>
                     </ul>
                 </li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-balance-wallet"></i><span>Fournisseurs</span> </a>
                     <ul class="ml-menu">
-                        <li> <a href="payments.html">Ajouter un fournisseur</a></li>
-                        <li> <a href="add-payments.html">Modifier un fournisseur</a></li>
-                        <li> <a href="patient-invoice.html">Liste des employés</a></li>
+                        <li data-nom="fournisseur" data-method="add"><a>Ajouter un fournisseur</a></li>
+                        <li data-nom="fournisseur" data-method="mod"><a>Modifier un fournisseur</a></li>
+                        <li data-nom="fournisseur" data-method="list"><a>Liste des fournisseurs</a></li>
                     </ul>
                 </li>
                 
@@ -361,8 +362,8 @@
     <!-- #END# Right Sidebar --> 
 </section>
 
-<section class="content home pageprincipale">
-    <div class="container-fluid gr100">
+<section class="content home">
+    <div class="container-fluid gr100 dashboard">
         <div class="block-header">
             <h2>Tableau de bord</h2>
             <small class="text-muted">Bienvenue sur votre espace PharmApp</small>
@@ -547,61 +548,491 @@
             </div>
         </div>                           
     </div>
-</section>
-<section class="content medicament" style="display:none;">
-    <div class="container-fluid">
+    <div class="container-fluid add" style="display:none;">
         <div class="block-header">
             <h2>Ajouter un médicament</h2>
-            <small class="text-muted">Ajouter un médicament à la liste</small>
+            <small class="text-muted txt1">Ajouter un médicament à la liste</small>
         </div>
         <div class="row clearfix">
 			<div class="col-md-12">
 				<div class="card">
 					<div class="header">
 						<h2>Enregistrement d'un médicament</h2>
-                        <small class="text-muted">Merci de rentrer le nom d'un médicament et sa quantité disponible pour l'ajouter.</small> 					
+                        <small class="text-muted txt2">Merci de rentrer le nom d'un médicament et sa quantité disponible pour l'ajouter.</small> 					
 					</div>
 					<div class="body">
-                        <div class="row clearfix">
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" id="ajouter_med" placeholder="Nom du médicament">
+                        <form>
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <div class="form-line champ1">
+                                            <input type="text" class="form-control" id="ajouter_med" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <div class="form-line champ2">
+                                            <input type="text" class="form-control" id="ajouter_qte" placeholder="">
+                                        </div>
+                                        <input type="hidden" id="" value="">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" id="ajouter_qte" placeholder="Quantité en stock">
-                                    </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <button type="submit" id="btn_envoyer_med" class="btn btn-raised g-bg-cyan">Envoyer</button>
+                                    <button type="submit" class="btn btn-raised">Annuler</button>
                                 </div>
+                                <div class="erreurs col-sm-12" style="text-align:center; font-weight:600;"></div>
                             </div>
-                        </div>
-                        <div class="row clearfix">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <form action="/" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
-                                    <div class="dz-message">
-                                        <div class="drag-icon-cph"> <i class="material-icons">touch_app</i> </div>
-                                        <h3>Cliquez ou déposez une image</h3>
-                                        <em>Choisissez une image au format png/jpg, ne dépassant pas 300 Mo.</em> </div>
-                                    <div class="fallback">
-                                        <input name="file" type="file" multiple />
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-sm-12">
-                                <button type="submit" id="" class="btn btn-raised g-bg-cyan">Envoyer</button>
-                                <button type="submit" class="btn btn-raised">Annuler</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
 				</div>
 			</div>
 		</div>        
     </div>
-</section>
+    <div class="container-fluid liste1" style="display:none;">
+        <div class="block-header">
+            <h2>Liste des médicaments</h2>
+            <small class="text-muted">Liste de l'ensemble des médicaments enregistrés et leurs stocks</small>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card all-patients">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 text-center m-b-0">
+                                <a href="#" class="p-profile-pix"><img src="assets/images/patients/random-avatar3.jpg" alt="user" class="img-thumbnail img-fluid"></a>
+                            </div>
+                            <div class="col-md-8 col-sm-8 m-b-0">
+                                <h5 class="m-b-0">Nom du médicament<a href="#" class="edit"><i class="zmdi zmdi-edit"></i></a><a href="#" class="edit"><i class="zmdi zmdi-delete" style="margin-right:10px;"></i></a></h5> <small>Ajouté le 01/01/75</small>
+                                <address class="m-b-0" style="position:absolute;bottom:5%;">
+                                    En stock : NaN<br>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card all-patients">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 text-center m-b-0">
+                                <a href="#" class="p-profile-pix"><img src="assets/images/patients/random-avatar4.jpg" alt="user" class="img-thumbnail img-fluid"></a>
+                            </div>
+                            <div class="col-md-8 col-sm-8 m-b-0">
+                                <h5 class="m-b-0">Nom du médicament<a href="#" class="edit"><i class="zmdi zmdi-edit"></i></a><a href="#" class="edit"><i class="zmdi zmdi-delete" style="margin-right:10px;"></i></a></h5> <small>Ajouté le 01/01/75</small>
+                                <address class="m-b-0" style="position:absolute;bottom:5%;">
+                                    En stock : NaN<br>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card all-patients">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 text-center m-b-0">
+                                <a href="#" class="p-profile-pix"><img src="assets/images/patients/random-avatar5.jpg" alt="user" class="img-thumbnail img-fluid"></a>
+                            </div>
+                            <div class="col-md-8 col-sm-8 m-b-0">
+                                <h5 class="m-b-0">Nom du médicament<a href="#" class="edit"><i class="zmdi zmdi-edit"></i></a><a href="#" class="edit"><i class="zmdi zmdi-delete" style="margin-right:10px;"></i></a></h5> <small>Ajouté le 01/01/75</small>
+                                <address class="m-b-0" style="position:absolute;bottom:5%;">
+                                    En stock : NaN<br>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card all-patients">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 text-center m-b-0">
+                                <a href="#" class="p-profile-pix"><img src="assets/images/patients/random-avatar6.jpg" alt="user" class="img-thumbnail img-fluid"></a>
+                            </div>
+                            <div class="col-md-8 col-sm-8 m-b-0">
+                                <h5 class="m-b-0">Nom du médicament<a href="#" class="edit"><i class="zmdi zmdi-edit"></i></a><a href="#" class="edit"><i class="zmdi zmdi-delete" style="margin-right:10px;"></i></a></h5> <small>Ajouté le 01/01/75</small>
+                                <address class="m-b-0" style="position:absolute;bottom:5%;">
+                                    En stock : NaN<br>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card all-patients">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 text-center m-b-0">
+                                <a href="#" class="p-profile-pix"><img src="assets/images/patients/random-avatar1.jpg" alt="user" class="img-thumbnail img-fluid"></a>
+                            </div>
+                            <div class="col-md-8 col-sm-8 m-b-0">
+                                <h5 class="m-b-0">Nom du médicament<a href="#" class="edit"><i class="zmdi zmdi-edit"></i></a><a href="#" class="edit"><i class="zmdi zmdi-delete" style="margin-right:10px;"></i></a></h5> <small>Ajouté le 01/01/75</small>
+                                <address class="m-b-0" style="position:absolute;bottom:5%;">
+                                    En stock : NaN<br>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card all-patients">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 text-center m-b-0">
+                                <a href="#" class="p-profile-pix"><img src="assets/images/patients/random-avatar1.jpg" alt="user" class="img-thumbnail img-fluid"></a>
+                            </div>
+                            <div class="col-md-8 col-sm-8 m-b-0">
+                                <h5 class="m-b-0">Nom du médicament<a href="#" class="edit"><i class="zmdi zmdi-edit"></i></a><a href="#" class="edit"><i class="zmdi zmdi-delete" style="margin-right:10px;"></i></a></h5> <small>Ajouté le 01/01/75</small>
+                                <address class="m-b-0" style="position:absolute;bottom:5%;">
+                                    En stock : NaN<br>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card all-patients">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 text-center m-b-0">
+                                <a href="#" class="p-profile-pix"><img src="assets/images/patients/random-avatar2.jpg" alt="user" class="img-thumbnail img-fluid"></a>
+                            </div>
+                            <div class="col-md-8 col-sm-8 m-b-0">
+                                <h5 class="m-b-0">Nom du médicament<a href="#" class="edit"><i class="zmdi zmdi-edit"></i></a><a href="#" class="edit"><i class="zmdi zmdi-delete" style="margin-right:10px;"></i></a></h5> <small>Ajouté le 01/01/75</small>
+                                <address class="m-b-0" style="position:absolute;bottom:5%;">
+                                    En stock : NaN<br>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card all-patients">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 text-center m-b-0">
+                                <a href="#" class="p-profile-pix"><img src="assets/images/patients/random-avatar3.jpg" alt="user" class="img-thumbnail img-fluid"></a>
+                            </div>
+                            <div class="col-md-8 col-sm-8 m-b-0">
+                                <h5 class="m-b-0">Nom du médicament<a href="#" class="edit"><i class="zmdi zmdi-edit"></i></a><a href="#" class="edit"><i class="zmdi zmdi-delete" style="margin-right:10px;"></i></a></h5> <small>Ajouté le 01/01/75</small>
+                                <address class="m-b-0" style="position:absolute;bottom:5%;">
+                                    En stock : NaN<br>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card all-patients">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 text-center m-b-0">
+                                <a href="#" class="p-profile-pix"><img src="assets/images/patients/random-avatar4.jpg" alt="user" class="img-thumbnail img-fluid"></a>
+                            </div>
+                            <div class="col-md-8 col-sm-8 m-b-0">
+                                <h5 class="m-b-0">Nom du médicament<a href="#" class="edit"><i class="zmdi zmdi-edit"></i></a><a href="#" class="edit"><i class="zmdi zmdi-delete" style="margin-right:10px;"></i></a></h5> <small>Ajouté le 01/01/75</small>
+                                <address class="m-b-0" style="position:absolute;bottom:5%;">
+                                    En stock : NaN<br>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card all-patients">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 text-center m-b-0">
+                                <a href="#" class="p-profile-pix"><img src="assets/images/patients/random-avatar5.jpg" alt="user" class="img-thumbnail img-fluid"></a>
+                            </div>
+                            <div class="col-md-8 col-sm-8 m-b-0">
+                                <h5 class="m-b-0">Nom du médicament<a href="#" class="edit"><i class="zmdi zmdi-edit"></i></a><a href="#" class="edit"><i class="zmdi zmdi-delete" style="margin-right:10px;"></i></a></h5> <small>Ajouté le 01/01/75</small>
+                                <address class="m-b-0" style="position:absolute;bottom:5%;">
+                                    En stock : NaN<br>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid liste2" style="display:none;">
+        <div class="block-header">
+            <h2>Liste des clients</h2>
+            <small class="text-muted">Liste de l'ensemble des clients enregistrés</small>
+        </div>
+        <div class="row clearfix">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="member-card verified">                            
+                            <div class="thumb-xl member-thumb">
+                                <img src="assets/images/random-avatar3.jpg" class="img-thumbnail rounded-circle" alt="profile-image">                               
+                            </div>
 
+                            <div class="">
+                                <h4 class="m-b-5 m-t-20">NOM Prénom</h4>
+                                <p class="text-muted">Client<span> <a href="#" class="text-pink">06 00 00 00 00</a> </span></p>
+                            </div>
+
+                                                       
+                            <a href=""  class="btn btn-raised btn-sm">Modifier</a><br>
+                            <a href=""  class="btn btn-raised btn-sm">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="member-card">                            
+                            <div class="thumb-xl member-thumb">
+                                <img src="assets/images/random-avatar4.jpg" class="img-thumbnail rounded-circle" alt="profile-image">                               
+                            </div>
+
+                            <div class="">
+                                <h4 class="m-b-5 m-t-20">NOM Prénom</h4>
+                                <p class="text-muted">Client<span> <a href="#" class="text-pink">06 00 00 00 00</a> </span></p>
+                            </div>
+
+                            
+                            <a href=""  class="btn btn-raised btn-sm">Modifier le profil</a><br>
+                            <a href=""  class="btn btn-raised btn-sm">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="member-card verified">                           
+                            <div class="thumb-xl member-thumb">
+                                <img src="assets/images/random-avatar6.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
+                               
+                            </div>
+
+                            <div class="">
+                                <h4 class="m-b-5 m-t-20">NOM Prénom</h4>
+                                <p class="text-muted">Client<span> <a href="#" class="text-pink">06 00 00 00 00</a> </span></p>
+                            </div>
+
+                            
+                            <a href=""  class="btn btn-raised btn-sm">Modifier le profil</a><br>
+                            <a href=""  class="btn btn-raised btn-sm">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="member-card verified">                           
+                            <div class="thumb-xl member-thumb">
+                                <img src="assets/images/random-avatar6.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
+                               
+                            </div>
+
+                            <div class="">
+                                <h4 class="m-b-5 m-t-20">NOM Prénom</h4>
+                                <p class="text-muted">Client<span> <a href="#" class="text-pink">06 00 00 00 00</a> </span></p>
+                            </div>
+
+                            
+                            <a href=""  class="btn btn-raised btn-sm">Modifier le profil</a><br>
+                            <a href=""  class="btn btn-raised btn-sm">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="member-card verified">
+                            <div class="thumb-xl member-thumb">
+                                <img src="assets/images/random-avatar3.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
+                               
+                            </div>
+
+                            <div class="">
+                                <h4 class="m-b-5 m-t-20">NOM Prénom</h4>
+                                <p class="text-muted">Client<span> <a href="#" class="text-pink">06 00 00 00 00</a> </span></p>
+                            </div>
+
+                            
+                            <a href=""  class="btn btn-raised btn-sm">Modifier le profil</a><br>
+                            <a href=""  class="btn btn-raised btn-sm">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="member-card">
+                            <div class="thumb-xl member-thumb">
+                                <img src="assets/images/random-avatar4.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
+                            </div>
+                            <div class="">
+                                <h4 class="m-b-5 m-t-20">NOM Prénom</h4>
+                                <p class="text-muted">Client<span> <a href="#" class="text-pink">06 00 00 00 00</a> </span></p>
+                            </div>
+
+                            
+                            <a href=""  class="btn btn-raised btn-sm">Modifier le profil</a><br>
+                            <a href=""  class="btn btn-raised btn-sm">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="member-card verified">
+                            <div class="thumb-xl member-thumb">
+                                <img src="assets/images/random-avatar6.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
+                               
+                            </div>
+
+                            <div class="">
+                                <h4 class="m-b-5 m-t-20">NOM Prénom</h4>
+                                <p class="text-muted">Client<span> <a href="#" class="text-pink">06 00 00 00 00</a> </span></p>
+                            </div>
+
+                            
+                            <a href=""  class="btn btn-raised btn-sm">Modifier le profil</a><br>
+                            <a href=""  class="btn btn-raised btn-sm">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="member-card verified">
+                            <div class="thumb-xl member-thumb">
+                                <img src="assets/images/random-avatar6.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
+                               
+                            </div>
+
+                            <div class="">
+                                <h4 class="m-b-5 m-t-20">NOM Prénom</h4>
+                                <p class="text-muted">Client<span> <a href="#" class="text-pink">06 00 00 00 00</a> </span></p>
+                            </div>
+
+                            
+                            <a href=""  class="btn btn-raised btn-sm">Modifier le profil</a><br>
+                            <a href=""  class="btn btn-raised btn-sm">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="member-card verified">
+                            <div class="thumb-xl member-thumb">
+                                <img src="assets/images/random-avatar6.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
+                               
+                            </div>
+
+                            <div class="">
+                                <h4 class="m-b-5 m-t-20">NOM Prénom</h4>
+                                <p class="text-muted">Client<span> <a href="#" class="text-pink">06 00 00 00 00</a> </span></p>
+                            </div>
+
+                            
+                            <a href=""  class="btn btn-raised btn-sm">Modifier le profil</a><br>
+                            <a href=""  class="btn btn-raised btn-sm">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="member-card verified">
+                            <div class="thumb-xl member-thumb">
+                                <img src="assets/images/random-avatar6.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
+                               
+                            </div>
+
+                            <div class="">
+                                <h4 class="m-b-5 m-t-20">NOM Prénom</h4>
+                                <p class="text-muted">Client<span> <a href="#" class="text-pink">06 00 00 00 00</a> </span></p>
+                            </div>
+
+                            
+                            <a href=""  class="btn btn-raised btn-sm">Modifier le profil</a><br>
+                            <a href=""  class="btn btn-raised btn-sm">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="member-card verified">
+                            <div class="thumb-xl member-thumb">
+                                <img src="assets/images/random-avatar3.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
+                               
+                            </div>
+
+                            <div class="">
+                                <h4 class="m-b-5 m-t-20">NOM Prénom</h4>
+                                <p class="text-muted">Client<span> <a href="#" class="text-pink">06 00 00 00 00</a> </span></p>
+                            </div>
+
+                            
+                            <a href=""  class="btn btn-raised btn-sm">Modifier le profil</a><br>
+                            <a href=""  class="btn btn-raised btn-sm">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="member-card">
+                            <div class="thumb-xl member-thumb">
+                                <img src="assets/images/random-avatar4.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
+                                
+                            </div>
+
+                            <div class="">
+                                <h4 class="m-b-5 m-t-20">NOM Prénom</h4>
+                                <p class="text-muted">Client<span> <a href="#" class="text-pink">06 00 00 00 00</a> </span></p>
+                            </div>
+
+                            
+                            <a href=""  class="btn btn-raised btn-sm">Modifier le profil</a><br>
+                            <a href=""  class="btn btn-raised btn-sm">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12 text-center">
+                <a href="" class="btn btn-raised g-bg-cyan">Ajouter un client</a>
+            </div>
+        </div>
+    </div>
+
+</section>
 <div class="color-bg"></div>
 <!-- Jquery Core Js --> 
 <script src="assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
