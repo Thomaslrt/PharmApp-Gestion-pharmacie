@@ -167,7 +167,7 @@ $(document).ready(function(){
 					console.log(currentpage);
 					$(".add h2").html("Ajouter un "+page);
 					$(".add .txt1").html("Ajouter un "+page+" à la liste");
-					$(".add .header h2").html("Enregistrement d'un "+page+".");
+					$(".add .header h2").html("Enregistrement d'un "+page);
 					if (page==="médicament") {
 						$(".add .txt2").html("Merci de rentrer le nom d'un "+page+" et sa quantité disponible pour l'ajouter.");
 						$(".add .champ1").html('<input type="text" class="form-control" id="medicament_nom" placeholder="Nom du médicament">');
@@ -191,15 +191,19 @@ $(document).ready(function(){
 					$(".add").slideDown(800);
 					currentpage = "add";
 					console.log(currentpage);
-					$(".add h2").html("Ajouter un "+page);
+					$(".add h2").html("Modifier un "+page);
 					if (page==="médicament") {
-						$(".add .text-muted").html("Merci de faire les changements voulus pour modifier le "+page+"");
+						$(".add .txt2").html("Merci de faire les changements voulus pour modifier le "+page+"");
+						$(".add .txt1").html("Modifications des données d'un "+page+"");
 					} else if (page==="client") {
-						$(".add .text-muted").html("Merci de faire les changements voulus pour modifier le "+page+"");
+						$(".add .txt2").html("Merci de faire les changements voulus pour modifier le "+page+"");
+						$(".add .txt1").html("Modifications des données d'un "+page+"");
 					} else if (page==="fournisseur") {
-						$(".add .text-muted").html("Merci de faire les changements voulus pour modifier le "+page+"");
+						$(".add .txt2").html("Merci de faire les changements voulus pour modifier le "+page+"");
+						$(".add .txt1").html("Modifications des données d'un "+page+"");
 					} else if (page==="employé") {
-						$(".add .text-muted").html("Merci de faire les changements voulus pour modifier l'"+page+"");
+						$(".add .txt2").html("Merci de faire les changements voulus pour modifier l'"+page+"");
+						$(".add .txt1").html("Modifications des données d'un "+page+"");
 					}
 				});
 			} else if (method === "list") {
