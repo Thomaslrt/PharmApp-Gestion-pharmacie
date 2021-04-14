@@ -1,9 +1,14 @@
 /* fonction qui enregistre en localStorage un objet puis le met à jour dans la variable globale */
 function saveLS(obj_name,obj){
 	if(obj === "null" || typeof(obj) === "object"){
-		obj_to_json = JSON.stringify(obj); /* transforme un objet en chaîne de caractères JSON */
-		window.localStorage.setItem(obj_name,obj_to_json);
-		// updateObj(obj,obj_name);
+		var old = localStorage.getItem(obj_name);
+		if(old == null) {
+		old = [];
+		} else {
+		old = JSON.parse(old);
+		}
+		obj_to_json = JSON.stringify(obj);
+		localStorage.setItem(obj_name, JSON.stringify(old.concat(obj_to_json)));
 		console.log("Mise à jour localStorage de l'objet '"+obj_name+"' :");
 		console.log(obj);
 		return true;
@@ -172,6 +177,7 @@ $(document).ready(function(){
 						$(".add .txt2").html("Merci de rentrer le nom d'un "+page+" et sa quantité disponible pour l'ajouter.");
 						$(".add .champ1").html('<input type="text" class="form-control" id="medicament_nom" placeholder="Nom du médicament">');
 						$(".add .champ2").html('<input type="text" class="form-control" id="medicament_qte" placeholder="Quantité en stock">');
+						$(".arraytest").html("[DÉBUG] LocalStorage : "+stock);
 					} else if (page==="client") {
 						$(".add .txt2").html("Merci de rentrer le nom du "+page+" et son numéro de téléphone pour l'ajouter.");
 						$(".add .champ1").html('<input type="text" class="form-control" id="client_nom" placeholder="Nom du client">');
