@@ -19,12 +19,10 @@ function saveLS(obj_name,obj){
 function getLS(nom){
 	var val = window.localStorage.getItem(nom);
 	if(val !== "null"){
-		json_to_obj = JSON.parse(val); /* transforme une chaîne de caractères JSON en objet */
-		if(typeof(json_to_obj) === "object"){
-			console.log("Récupération en localStorage de l'objet '"+nom+"' :");
-			console.log(json_to_obj);
-			return json_to_obj;
-		}
+		json_to_obj = val; /* transforme une chaîne de caractères JSON en objet */
+		console.log("Récupération en localStorage de l'objet '"+nom+"' :");
+		console.log(json_to_obj);
+		return json_to_obj;
 	}
 	return {}; /* retourne un objet vide */
 }
@@ -69,89 +67,83 @@ function listItems(obj_name){
 	}
 }
 
-/* fonction d'ajout d'un élément */
-function ajouter(obj_name,val1,val2){
-	if(!searchItem(val1,obj_name)){
-		stock = getLS(obj_name);
-		if(stock === "null" || typeof(stock) === "object"){
-			stock = {};
-			stock[val1]=val2;
-			console.log(stock);
-			saveLS(obj_name, stock);
-			$('.erreurs').html('<p style="color:green;text-align:center;">L\'objet à bien été ajouté au stock.</p>');
-		}
-	} else {
-		$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Cet élement existe déjà.</p>');
-	}
-	return false;
+
+
+
+////////////////////////////////////////////
+////////////////////////////////////////////
+////////////////////////////////////////////
+////////////////////////////////////////////
+////////////////////////////////////////////
+
+
+
+function NombreEntierPositif(nbProduit){
+    if(!isNaN(nbProduit) && nbProduit %1 === 0 && nbProduit>=0){
+        return true;
+    } else {
+        return false;
+    }
+
 }
 
-/* fonction de modification d'un élément */
-function modifier(obj_name,val1,val2){
-	if(searchItem(val1,obj_name)){
-		//à compléter
+function Stock(nom,qte){
+	this[nom]=qte;
+	return this;
+}
+
+function ajouterProduit(nomProduit,produitQUANT){
+   
+	var test = new Stock(nomProduit,produitQUANT);
+	var obj1 = window.localStorage.getItem("stock")||[];
+	if (obj1.includes(nomProduit)) {
+		$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Le médicament que vous essayez d\'ajouter existe déjà dans le stock.</p>');
 	} else {
-		alert("Modification impossible. Voir la console.");
+		test_to_obj = JSON.stringify(test);
+		test_to_obj = test_to_obj.concat(obj1);
+		window.localStorage.setItem("stock",test_to_obj);
+		$('.erreurs').html('<p style="color:green;text-align:center;">Le produit '+nomProduit+' ('+produitQUANT+' unités) a correctement été ajouté au stock.</p>');
+		$(".arraytest").html("[DÉBUG] LocalStorage : "+getLS("stock"));
+		console.log(chercherObjet(nomProduit,"stock"))
 	}
-	return false;
+}
+
+function chercherObjet(nom, obj_name) {
+	var arr = JSON.parse(localStorage.getItem(obj_name));
+	var exist = arr.some(item => _.isEqual(item, nom));
+	return exist;
+}
+
+
+function recupProduit(nomProduit){
+
+    var stock = window.localStorage.getItem(nomProduit);
+
+    if (stock!== null && stock>0){
+        return stock;
+    }else{
+        return "Aucun produit en stock";
+    }
 }
 
 
 $(document).ready(function(){
 
-// Ajout de produit
+// Ajout de médicament
 	$("#btn_envoyer_med").click(function(e){
 		e.preventDefault();
 		var nom_med = $("#medicament_nom").val();
 		var qte_med = $("#medicament_qte").val();
 			if(isNaN(nom_med) && nom_med !== ""){
 				if(!isNaN(qte_med) && qte_med > 0 && qte_med%1 === 0 ){
-					ajouter("stock",nom_med,qte_med);
+					ajouterProduit(nom_med,qte_med);
 				}else{
 					$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir une quantité étant un nombre entier supérieur à 0.</p>');
 				}
 			}else{
 				$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un nom composé de caractères uniquement.</p>');
 			}
-	});
-
-	$("#btn_envoyer_clt").click(function(){
-		var nom_clt = $("#ajouter_clt").val();
-		var num_clt = $("#ajouter_num").val();
-			if(isNaN(nom_clt) && nom_clt !== ""){
-				if(!isNaN(num_clt) && num_clt > 0 && num_clt%1 === 0 ){
-					
-				}else{
-					$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un "numero de telephone" valide</p>')
-				}
-			}else{
-				$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un "nom" composé de caractères uniquement.</p>')
-			}
-	});
-	
-	
-	$("#btn_envoyer_emp").click(function(){
-		var nom_emp = $("#ajouter_emp").val();
-		var poste_emp = $("#ajouter_poste").val();
-			if(isNaN(nom_emp) && nom_emp !== ""){
-				if(isNaN(poste_emp) && poste_emp !== ""){
-					
-				}else{
-					$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un "Poste" composé de caractères uniquement.</p>')
-				}
-			}else{
-				$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un "nom" composé de caractères uniquement.</p>')
-			}
-	});
-
-	$("#btn_envoyer_fournisseur").click(function(){
-		var nom_fournisseur = $("#ajouter_fournisseur").val();
-		var ad_fournisseur = $("#ajouter_adresse").val();
-			
-	});
-
-
-	 
+	});	 
 
 
 // Script des divs cachés 
@@ -174,7 +166,7 @@ $(document).ready(function(){
 						$(".add .txt2").html("Merci de rentrer le nom d'un "+page+" et sa quantité disponible pour l'ajouter.");
 						$(".add .champ1").html('<input type="text" class="form-control" id="medicament_nom" placeholder="Nom du médicament">');
 						$(".add .champ2").html('<input type="text" class="form-control" id="medicament_qte" placeholder="Quantité en stock">');
-						$(".arraytest").html("[DÉBUG] LocalStorage : "+stock);
+						$(".arraytest").html("[DÉBUG] LocalStorage : "+getLS("stock"));
 					} else if (page==="client") {
 						$(".add .txt2").html("Merci de rentrer le nom du "+page+" et son numéro de téléphone pour l'ajouter.");
 						$(".add .champ1").html('<input type="text" class="form-control" id="client_nom" placeholder="Nom du client">');
