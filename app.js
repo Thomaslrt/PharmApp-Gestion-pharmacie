@@ -77,12 +77,12 @@ function ajouter(obj_name,val1,val2){
 	if(!searchItem(val1,obj_name)){
 		stock = getLS(obj_name);
 		if(stock === "null" || typeof(stock) === "object"){
-			stock = {};
-		}
+		stock = {};
 		stock[val1]=val2;
 		console.log(stock);
 		saveLS(obj_name, stock);
-		alert('bien ajouter');
+		$('.erreurs').html('<p style="color:green;">L\'objet à bien été ajouté au stock.</p>')
+		}
 	} else {
 		$('.erreurs').html('<p style="color:red;">ERREUR : Cet élement existe déjà.</p>')
 	}
