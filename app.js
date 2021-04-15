@@ -77,14 +77,14 @@ function ajouter(obj_name,val1,val2){
 	if(!searchItem(val1,obj_name)){
 		stock = getLS(obj_name);
 		if(stock === "null" || typeof(stock) === "object"){
-		stock = {};
-		stock[val1]=val2;
-		console.log(stock);
-		saveLS(obj_name, stock);
-		$('.erreurs').html('<p style="color:green;">L\'objet à bien été ajouté au stock.</p>')
+			stock = {};
+			stock[val1]=val2;
+			console.log(stock);
+			saveLS(obj_name, stock);
+			$('.erreurs').html('<p style="color:green;text-align:center;">L\'objet à bien été ajouté au stock.</p>');
 		}
 	} else {
-		$('.erreurs').html('<p style="color:red;">ERREUR : Cet élement existe déjà.</p>')
+		$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Cet élement existe déjà.</p>');
 	}
 	return false;
 }
@@ -111,10 +111,10 @@ $(document).ready(function(){
 				if(!isNaN(qte_med) && qte_med > 0 && qte_med%1 === 0 ){
 					ajouter("stock",nom_med,qte_med);
 				}else{
-					$('.erreurs').html('<p style="color:red;">ERREUR : Veuillez saisir une quantité étant un nombre entier supérieur à 0.</p>');
+					$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir une quantité étant un nombre entier supérieur à 0.</p>');
 				}
 			}else{
-				$('.erreurs').html('<p style="color:red;">ERREUR : Veuillez saisir un nom composé de caractères uniquement.</p>');
+				$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un nom composé de caractères uniquement.</p>');
 			}
 	});
 
@@ -125,10 +125,10 @@ $(document).ready(function(){
 				if(!isNaN(num_clt) && num_clt > 0 && num_clt%1 === 0 ){
 					
 				}else{
-					$('.erreurs').html('<p style="color:red;">ERREUR : Veuillez saisir un "numero de telephone" valide</p>')
+					$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un "numero de telephone" valide</p>')
 				}
 			}else{
-				$('.erreurs').html('<p style="color:red;">ERREUR : Veuillez saisir un "nom" composé de caractères uniquement.</p>')
+				$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un "nom" composé de caractères uniquement.</p>')
 			}
 	});
 	
@@ -140,10 +140,10 @@ $(document).ready(function(){
 				if(isNaN(poste_emp) && poste_emp !== ""){
 					
 				}else{
-					$('.erreurs').html('<p style="color:red;">ERREUR : Veuillez saisir un "Poste" composé de caractères uniquement.</p>')
+					$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un "Poste" composé de caractères uniquement.</p>')
 				}
 			}else{
-				$('.erreurs').html('<p style="color:red;">ERREUR : Veuillez saisir un "nom" composé de caractères uniquement.</p>')
+				$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un "nom" composé de caractères uniquement.</p>')
 			}
 	});
 
