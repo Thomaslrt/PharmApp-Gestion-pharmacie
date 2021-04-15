@@ -3,19 +3,16 @@ function saveLS(obj_name,obj){
 	if(obj === "null" || typeof(obj) === "object"){
 		var old = localStorage.getItem(obj_name);
 		if(old == null) {
-		old = [];
+		  old = [];
 		} else {
-		old = JSON.parse(old);
+		  old = JSON.parse(old);
 		}
-		obj_to_json = JSON.stringify(obj);
-		localStorage.setItem(obj_name, JSON.stringify(old.concat(obj_to_json)));
-		console.log("Mise à jour localStorage de l'objet '"+obj_name+"' :");
-		console.log(obj);
-		return true;
-	}
+		localStorage.setItem(obj_name, JSON.stringify(old.concat(obj)));
+	} else {
 	console.log("Erreur lors de l'enregistrement en storageLocal de l'objet '"+obj_name+"'");
 	console.log("Contenu de l'objet : "+obj);
 	return false;
+}
 }
 
 /* fonction qui récupère un élément du localStorage puis qui retourne son objet */
