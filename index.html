@@ -14,6 +14,7 @@
 <!-- Swift Themes. You can choose a theme from css/themes instead of get all themes -->
 <link href="assets/css/themes/all-themes.css" rel="stylesheet" />
 <link href="assets/plugins/dropzone/dropzone.css" rel="stylesheet">
+<link rel="stylesheet" href="fontawesome/css/all.min.css">
 <link href="assets/plugins/waitme/waitMe.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="app.js"></script>
@@ -63,7 +64,7 @@
       </li>
       <li data-nom="fournisseur" data-method="add">
         <a data-mfb-label="Ajouter un fournisseur" class="mfb-component__button--child bg-grey">
-          <i class="zmdi zmdi-case mfb-component__child-icon"></i>
+          <i class="zmdi zmdi-truck mfb-component__child-icon"></i>
         </a>
       </li>
       <li data-nom="employé" data-method="add">
@@ -334,10 +335,10 @@
         <div class="row clearfix" >
             <div class="col-lg-3 col-md-3 col-sm-6">
                 <div class="info-box-4 hover-zoom-effect">
-                    <div class="icon"> <i class="zmdi zmdi-account col-blue"></i> </div>
+                    <div class="icon"> <i class="fas fa-pills"></i> </div>
                     <div class="content">
                         <div class="text">Médicament</div>
-                        <div class="number">0</div>
+                        <div class="number nb_med">0</div>
                     </div>
                 </div>
             </div>
@@ -352,7 +353,7 @@
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6">
                 <div class="info-box-4 hover-zoom-effect">
-                    <div class="icon"> <i class="zmdi zmdi-bug col-blush"></i> </div>
+                    <div class="icon"> <i class="zmdi zmdi-assignment col-blush"></i> </div>
                     <div class="content">
                         <div class="text">Employé</div>
                         <div class="number">0</div>
@@ -361,7 +362,7 @@
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6">
                 <div class="info-box-4 hover-zoom-effect">
-                    <div class="icon"> <i class="zmdi zmdi-balance col-cyan"></i> </div>
+                    <div class="icon"> <i class="zmdi zmdi-truck col-cyan"></i> </div>
                     <div class="content">
                         <div class="text">Fournisseur</div>
                         <div class="number">0</div>
@@ -393,10 +394,8 @@
                                 <th>Quantité en stock</th>
                               </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="medicaments">
                               <tr>
-                                <td>Doliprane</td>
-                                <td>150</td>
                               </tr>
                             </tbody>
                           </table>

@@ -1,28 +1,27 @@
-/* fonction qui enregistre en localStorage un objet puis le met à jour dans la variable globale */
 function saveLS(obj_name,obj){
 	if(obj === "null" || typeof(obj) === "object"){
-		var old = localStorage.getItem(obj_name);
-		if(old == null) {
-		  old = [];
-		} else {
-		  old = JSON.parse(old);
-		}
-		localStorage.setItem(obj_name, JSON.stringify(old.concat(obj)));
-	} else {
+		obj_to_json = JSON.stringify(obj); /* transforme un objet en chaîne de caractères JSON */
+		window.localStorage.setItem(obj_name,obj_to_json);
+		// updateObj(obj,obj_name);
+		console.log("Mise à jour localStorage de l'objet '"+obj_name+"' :");
+		console.log(obj);
+		return true;
+	}
 	console.log("Erreur lors de l'enregistrement en storageLocal de l'objet '"+obj_name+"'");
 	console.log("Contenu de l'objet : "+obj);
 	return false;
-}
 }
 
 /* fonction qui récupère un élément du localStorage puis qui retourne son objet */
 function getLS(nom){
 	var val = window.localStorage.getItem(nom);
 	if(val !== "null"){
-		json_to_obj = val; /* transforme une chaîne de caractères JSON en objet */
-		console.log("Récupération en localStorage de l'objet '"+nom+"' :");
-		console.log(json_to_obj);
-		return json_to_obj;
+		json_to_obj = JSON.parse(val); /* transforme une chaîne de caractères JSON en objet */
+		if(typeof(json_to_obj) === "object"){
+			console.log("Récupération en localStorage de l'objet '"+nom+"' :");
+			console.log(json_to_obj);
+			return json_to_obj;
+		}
 	}
 	return {}; /* retourne un objet vide */
 }
@@ -92,21 +91,23 @@ function Stock(nom,qte){
 	return this;
 }
 
-function ajouterProduit(nomProduit,produitQUANT){
-   
-	var test = new Stock(nomProduit,produitQUANT);
-	var obj1 = window.localStorage.getItem("stock")||[];
-	if (obj1.includes(nomProduit)) {
-		$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Le médicament que vous essayez d\'ajouter existe déjà dans le stock.</p>');
-	} else {
-		test_to_obj = JSON.stringify(test);
-		test_to_obj = test_to_obj.concat(obj1);
-		window.localStorage.setItem("stock",test_to_obj);
-		$('.erreurs').html('<p style="color:green;text-align:center;">Le produit '+nomProduit+' ('+produitQUANT+' unités) a correctement été ajouté au stock.</p>');
-		$(".arraytest").html("[DÉBUG] LocalStorage : "+getLS("stock"));
-		console.log(chercherObjet(nomProduit,"stock"))
+function ajouterProduit(nom_obj, val1, val2) {
+	if (
+	  nom_obj === "stock" ||
+	  nom_obj === "employes" ||
+	  nom_obj === "clients" ||
+	  nom_obj === "fournisseurs"
+	) {
+	  var stock = getLS(nom_obj);
+	  if (stock === null || typeof stock !== "object") {
+		stock = {};
+	  }
+	  stock[val1] = val2;
+	  if (saveLS(nom_obj, stock)) {
+		$('.erreurs').html('<p style="color:green;text-align:center;">L\'objet '+nom_obj+' a bien été ajouté au stock.</p>');
+	  }
 	}
-}
+  }
 
 function chercherObjet(nom, obj_name) {
 	var arr = JSON.parse(localStorage.getItem(obj_name));
@@ -136,7 +137,7 @@ $(document).ready(function(){
 		var qte_med = $("#medicament_qte").val();
 			if(isNaN(nom_med) && nom_med !== ""){
 				if(!isNaN(qte_med) && qte_med > 0 && qte_med%1 === 0 ){
-					ajouterProduit(nom_med,qte_med);
+					ajouterProduit("stock", nom_med,qte_med);
 				}else{
 					$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir une quantité étant un nombre entier supérieur à 0.</p>');
 				}
@@ -144,7 +145,15 @@ $(document).ready(function(){
 				$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un nom composé de caractères uniquement.</p>');
 			}
 	});	 
-
+	  
+	  [stock].map((obj) => {  
+			$('.nb_med').html(Object.keys(obj).length);
+		  	for (var i=0 ; i < (Object.keys(obj).length) ; i++) {
+				$('#medicaments').append('<tr><td id="nom_med'+i+'"></td><td id="qte_med'+i+'"></td></tr>');
+				$('#nom_med'+i+'').html(Object.keys(obj)[i]);
+				$('#qte_med'+i+'').html(Object.values(obj)[i]);
+			}
+	  });
 
 // Script des divs cachés 
 	var currentpage = "dashboard";
@@ -166,7 +175,6 @@ $(document).ready(function(){
 						$(".add .txt2").html("Merci de rentrer le nom d'un "+page+" et sa quantité disponible pour l'ajouter.");
 						$(".add .champ1").html('<input type="text" class="form-control" id="medicament_nom" placeholder="Nom du médicament">');
 						$(".add .champ2").html('<input type="text" class="form-control" id="medicament_qte" placeholder="Quantité en stock">');
-						$(".arraytest").html("[DÉBUG] LocalStorage : "+getLS("stock"));
 					} else if (page==="client") {
 						$(".add .txt2").html("Merci de rentrer le nom du "+page+" et son numéro de téléphone pour l'ajouter.");
 						$(".add .champ1").html('<input type="text" class="form-control" id="client_nom" placeholder="Nom du client">');
