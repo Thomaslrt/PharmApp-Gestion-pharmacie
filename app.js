@@ -1,3 +1,6 @@
+
+	var currentpage = "accueil";
+
 function saveLS(obj_name,obj){
 	if(obj === "null" || typeof(obj) === "object"){
 		obj_to_json = JSON.stringify(obj); /* transforme un objet en chaîne de caractères JSON */
@@ -146,19 +149,12 @@ $(document).ready(function(){
 			}
 	});	 
 	  
-	  [stock].map((obj) => {  
-			$('.nb_med').html(Object.keys(obj).length);
-		  	for (var i=0 ; i < (Object.keys(obj).length) ; i++) {
-				$('#medicaments').append('<tr><td id="nom_med'+i+'"></td><td id="qte_med'+i+'"></td></tr>');
-				$('#nom_med'+i+'').html(Object.keys(obj)[i]);
-				$('#qte_med'+i+'').html(Object.values(obj)[i]);
-			}
-	  });
+	
 
 // Script des divs cachés 
-	var currentpage = "dashboard";
 
-	$("li").click(function(){
+
+	$("li, a").click(function(){
 		var page = $(this).data("nom");
 		var method = $(this).data("method");
 		if (page !== undefined) {
@@ -210,7 +206,29 @@ $(document).ready(function(){
 					}
 				});
 			} else if (method === "list") {
-			} 
+				
+			} else {
+				$("."+currentpage+"").slideUp(800,function(){
+					$("."+page+"").slideDown(800);
+					currentpage = page;
+					console.log(currentpage); 
+					medocsok = window.localStorage.getItem("stock");
+					stock = getLS("stock");
+					$('#medicaments').html('');
+					if(medocsok !== null){
+						[stock].map((obj) => {  
+							$('.nb_med').html(Object.keys(obj).length);
+							for (var i=0 ; i < (Object.keys(obj).length) ; i++) {
+								$('#medicaments').append('<tr><td id="nom_med'+i+'"></td><td id="qte_med'+i+'"></td></tr>');
+								$('#nom_med'+i+'').html(Object.keys(obj)[i]);
+								$('#qte_med'+i+'').html(Object.values(obj)[i]);
+							}
+						});
+					} else {
+						console.log("Aucune valeur enregistrée = Rien d'affiché")
+					}
+				});
+			}
 		}
 	});
 });

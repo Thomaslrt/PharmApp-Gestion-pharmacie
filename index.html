@@ -19,9 +19,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="app.js"></script>
 <!-- Commencement du script -->
-<script>
-
-</script>
+<style>
+    body {
+        overflow-y:scroll;
+        overflow-x: hidden;
+    }
+</style>
 </head>
 <body class="theme-cyan">
 <!-- Page Loader -->
@@ -91,7 +94,7 @@
                                 <div class="icon-circle bg-light-green"><i class="zmdi zmdi-account-add"></i></div>
                                 <div class="menu-info">
                                     <h4>Notification</h4>
-                                    <p> <i class="material-icons">Connexion</i> Il y a 14 min</p>
+                                    <p> <i class="material-icons">last-seen</i> Il y a 14 min</p>
                                 </div>
                                 </a> </li>
                         </ul>
@@ -129,8 +132,8 @@
         <div class="menu">
             <ul class="list">
                 <li class="header">Navigation</li>
-                <li class="active open"><a href="index.html"><i class="zmdi zmdi-home"></i><span>Accueil</span></a></li>
-                <li class="open" data-nom="dashboard"><a><i class="zmdi zmdi-home"></i><span>Tableau de bord</span></a></li>                                               
+                <li class="active open" data-nom="accueil"><a><i class="zmdi zmdi-home"></i><span>Accueil</span></a></li>
+                <li class="open" data-nom="dashboard"><a ><i class="zmdi zmdi-home"></i><span>Tableau de bord</span></a></li>                                               
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-calendar-check"></i><span>Médicaments</span> </a>
                     <ul class="ml-menu">
                         <li data-nom="médicament" data-method="add"><a>Ajouter un médicament </a></li>
@@ -326,7 +329,26 @@
 </section>
 
 <section class="content home">
-    <div class="container-fluid gr100 dashboard">
+        <div class="container-fluid accueil"> 
+            <div class="row clearfix gr100 justify-content-md-center">
+                <div class="col-sm-auto">
+                    <img id="logo" src="assets/images/logo.png">
+                    <div class="principal">
+                        <h1>Bienvenue sur PharmaApp, l'application qui vous permets de suivre et gérer facilement 
+                        l'ensemble de vos services essentiels : Gestion des médicaments en stock, liste des différents fournisseurs, 
+                        ajout et modifications de coordonnées clients, et gestion de vos différents employés.</h1>
+                        
+                    </div>
+                    <div class="boutons">
+                        <a data-nom="médicament" data-method="add"  class="btn btn-raised btn-sm">Ajouter un médicament</a>
+                        <a data-nom="client" data-method="add"  class="btn btn-raised btn-sm">Ajouter un client</a>
+                        <a data-nom="employé" data-method="add"  class="btn btn-raised btn-sm">Ajouter un employé</a>
+                        <a data-nom="fournisseur" data-method="add"  class="btn btn-raised btn-sm">Ajouter un fournisseur</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="container-fluid gr100 dashboard" style="display:none">
         <div class="block-header">
             <h2>Tableau de bord</h2>
             <small class="text-muted">Bienvenue sur votre espace PharmApp</small>
@@ -337,7 +359,7 @@
                 <div class="info-box-4 hover-zoom-effect">
                     <div class="icon"> <i class="fas fa-pills"></i> </div>
                     <div class="content">
-                        <div class="text">Médicament</div>
+                        <div class="text">Médicament(s)</div>
                         <div class="number nb_med">0</div>
                     </div>
                 </div>
@@ -346,7 +368,7 @@
                 <div class="info-box-4 hover-zoom-effect">
                     <div class="icon"> <i class="zmdi zmdi-account col-green"></i> </div>
                     <div class="content">
-                        <div class="text">Client</div>
+                        <div class="text">Client(s)</div>
                         <div class="number">0</div>
                     </div>
                 </div>
@@ -355,7 +377,7 @@
                 <div class="info-box-4 hover-zoom-effect">
                     <div class="icon"> <i class="zmdi zmdi-assignment col-blush"></i> </div>
                     <div class="content">
-                        <div class="text">Employé</div>
+                        <div class="text">Employé(s)</div>
                         <div class="number">0</div>
                     </div>
                 </div>
@@ -364,7 +386,7 @@
                 <div class="info-box-4 hover-zoom-effect">
                     <div class="icon"> <i class="zmdi zmdi-truck col-cyan"></i> </div>
                     <div class="content">
-                        <div class="text">Fournisseur</div>
+                        <div class="text">Fournisseur(s)</div>
                         <div class="number">0</div>
                     </div>
                 </div>
@@ -374,7 +396,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
-                        <h2> Médicament <small> Liste des derniers médicaments ajoutés </small> </h2>
+                        <h2> Médicament(s) <small> Liste des derniers médicaments ajoutés </small> </h2>
                         <ul class="header-dropdown">
                             <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></a>
                                 <ul class="dropdown-menu float-right">
@@ -408,7 +430,7 @@
             <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="card">
                     <div class="header">
-                        <h2> Client <small>Liste des derniers clients ajoutés</small> </h2>
+                        <h2> Client(s) <small>Liste des derniers clients ajoutés</small> </h2>
                         <ul class="header-dropdown">
                             <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></a>
                                 <ul class="dropdown-menu float-right">
@@ -442,7 +464,7 @@
             <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="card">
                     <div class="header">
-                        <h2> Employé <small>Liste des derniers employés ajoutés</small> </h2>
+                        <h2> Employé(s) <small>Liste des derniers employés ajoutés</small> </h2>
                         <ul class="header-dropdown">
                             <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></a>
                                 <ul class="dropdown-menu float-right">
@@ -476,7 +498,7 @@
             <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="card">
                     <div class="header">
-                        <h2> Fournisseur <small>Liste des derniers fournisseurs ajoutés</small> </h2>
+                        <h2> Fournisseur(s) <small>Liste des derniers fournisseurs ajoutés</small> </h2>
                         <ul class="header-dropdown">
                             <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></a>
                                 <ul class="dropdown-menu float-right">
