@@ -130,56 +130,99 @@ function recupProduit(nomProduit){
     }
 }
 
+function validationTel(Tel)
+{
+  var regex = new RegExp(/^(06|07)[0-9]{8}/gi);
+    
+    if (regex.test (Tel))
+    {
+        return(true);
+    }
+    else
+    {
+        return(false);
+    }
+}
 
 $(document).ready(function(){
 
-// Ajout de médicament
+// Ajout d'un élement
 	$("#ajouter").submit(function(e){
 		e.preventDefault();
-		var nom_med = $("#medicament_nom").val();
-		var qte_med = Number($("#medicament_qte").val());
-			if(isNaN(nom_med) && nom_med !== ""){
-				if(!isNaN(qte_med) && qte_med > 0 && qte_med%1 === 0 ){
-					ajouterProduit("stock", nom_med,qte_med);
-				}else{
-					// $('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir une quantité étant un nombre entier supérieur à 0.</p>');
+		console.log("Méthode :"+currentpage)
+		console.log(id2)
+		console.log(id1)
+		if (currentpage==="add") {
+			var champ1 = $("#"+id1+"").val();
+			var champ2 = $("#"+id2+"").val();
+			if (id1==="medicament_nom") {
+				if(isNaN(champ1) && champ1 !== ""){
+					if(!isNaN(champ2) && champ2 > 0 && champ2%1 === 0 ){
+						ajouterProduit("stock", champ1,champ2);
+						$('.champ1, .champ2').val("");
+					}
 				}
-			}else{
-				// $('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un nom composé de caractères uniquement.</p>');
+			} else if (id1==="client_nom") {
+				if(isNaN(champ1) && champ1 !== ""){
+					if(validationTel(champ2)){
+						ajouterProduit("clients", champ1,champ2);
+						$('.champ1, .champ2').val("");
+					}
+				}
+			} else if (id1==="employe_nom") {
+				if(isNaN(champ1) && champ1 !== ""){
+					if(isNaN(champ2)){
+						ajouterProduit("employes", champ1,champ2);
+						$('.champ1, .champ2').val("");
+					}
+				}
+			} else if (id1==="fournisseur_nom") {
+				if(isNaN(champ1) && champ1 !== ""){
+					if(!isNaN(champ2)){
+						ajouterProduit("fournisseurs", champ1,champ2);
+						$('.champ1, .champ2').val("");
+					}
+				}
 			}
+		}
 	});	 
 	  
 //condition des couleurs du formulaire
 
-	$(".champ1").keypress(function(){
-		$('.erreurs').html('');
-		$('.champ1').css({'border-bottom':'1px solid #ddd'});
-		$('.champ1').children("#medicament_nom").css({'color':'#464a4c'});
-	});
+	
 
-	$(".champ2").keypress(function(){
-		$('.erreurs').html('');
-		$('.champ2').css({'border-bottom':'1px solid #ddd'});
-		$('.champ2').children("#medicament_qte").css({'color':'#464a4c'});
-	});
 
-	$(".champ1").focusout(function(){
-		var nom_med = $("#medicament_nom").val();
-		if(!isNaN(nom_med) || nom_med === ""){
-			$('.champ1').css({'border-bottom':'1px solid red'});
-			$('.champ1').children("#medicament_nom").css({'color':'red'});
-			$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un nom composé de caractères uniquement.</p>');
-		}
-	});
 
-	$(".champ2").focusout(function(){
-		var qte_med = Number($("#medicament_qte").val());
-		if(isNaN(qte_med) || qte_med < 0 || qte_med%1 !== 0 ){
-			$('.champ2').css({'border-bottom':'1px solid red'});
-			$('.champ2').children("#medicament_qte").css({'color':'red'});
-			$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir une quantité étant un nombre entier supérieur à 0.</p>');
-		}
-	});
+
+	// $(".champ1").keypress(function(){
+	// 	$('.erreurs').html('');
+	// 	$('.champ1').css({'border-bottom':'1px solid #ddd'});
+	// 	$('.champ1').children("#medicament_nom").css({'color':'#464a4c'});
+	// });
+
+	// $(".champ2").keypress(function(){
+	// 	$('.erreurs').html('');
+	// 	$('.champ2').css({'border-bottom':'1px solid #ddd'});
+	// 	$('.champ2').children("#medicament_qte").css({'color':'#464a4c'});
+	// });
+
+	// $(".champ1").focusout(function(){
+	// 	var nom_med = $("#medicament_nom").val();
+	// 	if(!isNaN(nom_med) || nom_med === ""){
+	// 		$('.champ1').css({'border-bottom':'1px solid red'});
+	// 		$('.champ1').children("#medicament_nom").css({'color':'red'});
+	// 		$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un nom composé de caractères uniquement.</p>');
+	// 	}
+	// });
+
+	// $(".champ2").focusout(function(){
+	// 	var qte_med = Number($("#medicament_qte").val());
+	// 	if(isNaN(qte_med) || qte_med < 0 || qte_med%1 !== 0 ){
+	// 		$('.champ2').css({'border-bottom':'1px solid red'});
+	// 		$('.champ2').children("#medicament_qte").css({'color':'red'});
+	// 		$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir une quantité étant un nombre entier supérieur à 0.</p>');
+	// 	}
+	// });
 	
 
 	
@@ -193,32 +236,121 @@ $(document).ready(function(){
 			$("a").removeClass("active");
 			$(this).addClass("active");
 			$(this).children("a").addClass("active");
+			$('.erreurs').html('');
+			
 			if (method === "add") {
 				$("."+currentpage+"").slideUp(800,function(){
 					$(".add").slideDown(800);
 					currentpage = "add";
 					console.log(currentpage);
+					console.log(page)
 					$(".add h2").html("Ajouter un "+page);
 					$(".add .txt1").html("Ajouter un "+page+" à la liste");
 					$(".add .header h2").html("Enregistrement d'un "+page);
 					if (page==="médicament") {
+						id1 = "medicament_nom";
+						id2 = "medicament_qte";
 						$(".add .txt2").html("Merci de rentrer le nom d'un "+page+" et sa quantité disponible pour l'ajouter.");
 						$(".add .champ1").html('<input type="text" class="form-control" id="medicament_nom" placeholder="Nom du médicament">');
 						$(".add .champ2").html('<input type="text" class="form-control" id="medicament_qte" placeholder="Quantité en stock">');
 					} else if (page==="client") {
+						id1 = "client_nom";
+						id2 = "client_numero";
 						$(".add .txt2").html("Merci de rentrer le nom du "+page+" et son numéro de téléphone pour l'ajouter.");
 						$(".add .champ1").html('<input type="text" class="form-control" id="client_nom" placeholder="Nom du client">');
 						$(".add .champ2").html('<input type="text" class="form-control" id="client_numero" placeholder="Numéro de téléphone">');
 					} else if (page==="fournisseur") {
+						id1 = "fournisseur_nom";
+						id2 = "fournisseur_adresse";
 						$(".add .txt2").html("Merci de rentrer le nom du "+page+" et son adresse pour l'ajouter.");
 						$(".add .champ1").html('<input type="text" class="form-control" id="fournisseur_nom" placeholder="Nom du fournisseur">');
-						$(".add .champ2").html('<input type="text" class="form-control" id="fournisseur_adresse" placeholder="Adresse du fournisseur">');
+						$(".add .champ2").html('<input type="textarea" class="form-control" id="fournisseur_adresse" placeholder="Adresse du fournisseur">');
 					} else if (page==="employé") {
+						id1 = "employe_nom";
+						id2 = "employe_poste";
 						$(".add .txt2").html("Merci de rentrer le nom de l'"+page+" et son poste actuel pour l'ajouter.");
 						$(".add .champ1").html('<input type="text" class="form-control" id="employe_nom" placeholder="Nom de l\'employé">');
 						$(".add .champ2").html('<input type="text" class="form-control" id="employe_poste" placeholder="Poste de l\'employé">');
 					}
+
+
+					//// Vérifications des champs
+						if (id1==="medicament_nom" || id1==="client_nom" || id1==="employe_nom" || id1==="fournisseur_nom") {
+							$(".champ1").keypress(function(){
+								$('.erreurs').html('');
+								$('.champ1').css({'border-bottom':'1px solid #ddd'});
+								$('.champ1').children("#"+id1+"").css({'color':'#464a4c'});
+							});
+							$(".champ1").focusout(function(){
+								var nom = $("#"+id1+"").val();
+								if(!isNaN(nom) || nom === ""){
+									$('.champ1').css({'border-bottom':'1px solid red'});
+									$('.champ1').children("#"+id1+"").css({'color':'red'});
+									$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un nom composé de caractères uniquement.</p>');
+								}
+							});
+						}
+						
+						if (id1==="client_nom") {
+							$(".champ2").keypress(function(){
+								$('.erreurs').html('');
+								$('.champ2').css({'border-bottom':'1px solid #ddd'});
+								$('.champ2').children("#"+id2+"").css({'color':'#464a4c'});
+							});
+							$(".champ2").focusout(function(){
+								var tel = $("#"+id2+"").val();
+								if(!validationTel(tel) || tel === ""){
+									$('.champ2').css({'border-bottom':'1px solid red'});
+									$('.champ2').children("#"+id2+"").css({'color':'red'});
+									$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un numéro de téléphone composé de chiffres uniquement, et qui commence par 06 ou 07</p>');
+								}
+							});
+						} else if (id1==="employe_nom") {
+							$(".champ2").keypress(function(){
+								$('.erreurs').html('');
+								$('.champ2').css({'border-bottom':'1px solid #ddd'});
+								$('.champ2').children("#"+id2+"").css({'color':'#464a4c'});
+							});
+							$(".champ2").focusout(function(){
+								var poste = $("#"+id2+"").val();
+								if(!isNaN(poste) || poste === ""){
+									$('.champ2').css({'border-bottom':'1px solid red'});
+									$('.champ2').children("#"+id1+"").css({'color':'red'});
+									$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un nom de poste composé de lettres uniquement</p>');
+								}
+							});
+						} else if (id1==="fournisseur_nom") {
+							$(".champ2").keypress(function(){
+								$('.erreurs').html('');
+								$('.champ2').css({'border-bottom':'1px solid #ddd'});
+								$('.champ2').children("#"+id2+"").css({'color':'#464a4c'});
+							});
+							$(".champ2").focusout(function(){
+								var adresse = $("#"+id2+"").val();
+								if(adresse === ""){
+									$('.champ2').css({'border-bottom':'1px solid red'});
+									$('.champ2').children("#"+id1+"").css({'color':'red'});
+									$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir une adresse</p>');
+								}
+							});
+						} else if (id1==="medicament_nom") {
+							$(".champ2").keypress(function(){
+								$('.erreurs').html('');
+								$('.champ2').css({'border-bottom':'1px solid #ddd'});
+								$('.champ2').children("#"+id2+"").css({'color':'#464a4c'});
+							});
+							$(".champ2").focusout(function(){
+								var tel = $("#"+id2+"").val();
+								if(!validationTel(tel)){
+									$('.champ2').css({'border-bottom':'1px solid red'});
+									$('.champ2').children("#"+id1+"").css({'color':'red'});
+									$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un numéro de téléphone composé de chiffres uniquement, et qui commence par 06 ou 07</p>');
+								}
+							});
+						}
+					}
 				});
+				
 			} else if (method === "mod") {
 				$("."+currentpage+"").slideUp(800,function(){
 					$(".add").slideDown(800);
