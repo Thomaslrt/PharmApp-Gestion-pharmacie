@@ -134,31 +134,65 @@ function recupProduit(nomProduit){
 $(document).ready(function(){
 
 // Ajout de médicament
-	$("#btn_envoyer_med").click(function(e){
+	$("#ajouter").submit(function(e){
 		e.preventDefault();
 		var nom_med = $("#medicament_nom").val();
-		var qte_med = $("#medicament_qte").val();
+		var qte_med = Number($("#medicament_qte").val());
 			if(isNaN(nom_med) && nom_med !== ""){
 				if(!isNaN(qte_med) && qte_med > 0 && qte_med%1 === 0 ){
 					ajouterProduit("stock", nom_med,qte_med);
 				}else{
-					$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir une quantité étant un nombre entier supérieur à 0.</p>');
+					// $('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir une quantité étant un nombre entier supérieur à 0.</p>');
 				}
 			}else{
-				$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un nom composé de caractères uniquement.</p>');
+				// $('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un nom composé de caractères uniquement.</p>');
 			}
 	});	 
 	  
+//condition des couleurs du formulaire
+
+	$(".champ1").keypress(function(){
+		$('.erreurs').html('');
+		$('.champ1').css({'border-bottom':'1px solid #ddd'});
+		$('.champ1').children("#medicament_nom").css({'color':'#464a4c'});
+	});
+
+	$(".champ2").keypress(function(){
+		$('.erreurs').html('');
+		$('.champ2').css({'border-bottom':'1px solid #ddd'});
+		$('.champ2').children("#medicament_qte").css({'color':'#464a4c'});
+	});
+
+	$(".champ1").focusout(function(){
+		var nom_med = $("#medicament_nom").val();
+		if(!isNaN(nom_med) || nom_med === ""){
+			$('.champ1').css({'border-bottom':'1px solid red'});
+			$('.champ1').children("#medicament_nom").css({'color':'red'});
+			$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir un nom composé de caractères uniquement.</p>');
+		}
+	});
+
+	$(".champ2").focusout(function(){
+		var qte_med = Number($("#medicament_qte").val());
+		if(isNaN(qte_med) || qte_med < 0 || qte_med%1 !== 0 ){
+			$('.champ2').css({'border-bottom':'1px solid red'});
+			$('.champ2').children("#medicament_qte").css({'color':'red'});
+			$('.erreurs').html('<p style="color:red;text-align:center;">ERREUR : Veuillez saisir une quantité étant un nombre entier supérieur à 0.</p>');
+		}
+	});
 	
 
+	
 // Script des divs cachés 
-
-
 	$("li, a").click(function(){
 		var page = $(this).data("nom");
 		var method = $(this).data("method");
 		if (page !== undefined) {
 			console.log(page);
+			$("li").removeClass("active");
+			$("a").removeClass("active");
+			$(this).addClass("active");
+			$(this).children("a").addClass("active");
 			if (method === "add") {
 				$("."+currentpage+"").slideUp(800,function(){
 					$(".add").slideDown(800);
@@ -191,13 +225,7 @@ $(document).ready(function(){
 					currentpage = "add";
 					console.log(currentpage);
 					$(".add h2").html("Modifier un "+page);
-					if (page==="médicament") {
-						$(".add .txt2").html("Merci de faire les changements voulus pour modifier le "+page+"");
-						$(".add .txt1").html("Modifications des données d'un "+page+"");
-					} else if (page==="client") {
-						$(".add .txt2").html("Merci de faire les changements voulus pour modifier le "+page+"");
-						$(".add .txt1").html("Modifications des données d'un "+page+"");
-					} else if (page==="fournisseur") {
+					if (page==="médicament" || page==="client" || page==="fournisseur") {
 						$(".add .txt2").html("Merci de faire les changements voulus pour modifier le "+page+"");
 						$(".add .txt1").html("Modifications des données d'un "+page+"");
 					} else if (page==="employé") {
