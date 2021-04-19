@@ -5,25 +5,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <title>PharmApp</title>
-<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-<link href="assets/plugins/morrisjs/morris.css" rel="stylesheet" />
-<!-- Custom Css -->
 <link href="assets/css/main.css" rel="stylesheet">
-<!-- Swift Themes. You can choose a theme from css/themes instead of get all themes -->
 <link href="assets/css/themes/all-themes.css" rel="stylesheet" />
-<link href="assets/plugins/dropzone/dropzone.css" rel="stylesheet">
 <link rel="stylesheet" href="fontawesome/css/all.min.css">
-<link href="assets/plugins/waitme/waitMe.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="app.js"></script>
-<!-- Commencement du script -->
 <style>
     body {
         overflow-y:scroll;
         overflow-x: hidden;
-        color : #12263f ;
+        color : #12263f;
     }
     
 
@@ -93,7 +86,6 @@
 </style>
 </head>
 <body class="theme-cyan">
-<!-- Page Loader -->
 <div class="page-loader-wrapper">
     <div class="loader">
         <div class="preloader">
@@ -109,11 +101,7 @@
         <p>Veuillez patienter...</p>
     </div>
 </div>
-<!-- #END# Page Loader --> 
-<!-- Overlay For Sidebars -->
 <div class="overlay"></div>
-<!-- #END# Overlay For Sidebars -->
-<!-- #Float icon -->
 <ul id="f-menu" class="mfb-component--br mfb-zoomin" data-mfb-toggle="hover">
   <li class="mfb-component__wrap">
     <a href="#" class="mfb-component__button--main bleu">
@@ -144,41 +132,15 @@
     </ul>
   </li>
 </ul>
-<!-- #Float icon -->
-<!-- Top Bar -->
 <nav class="navbar clearHeader">
     <div class="col-12">
         <div class="navbar-header"> <a href="javascript:void(0);" class="bars"></a> <a class="navbar-brand" href="index.html">PharmApp</a> </div>
         <ul class="nav navbar-nav navbar-right">
-            <!-- Notifications -->
-            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i> <span class="label-count">7</span> </a>
-                <ul class="dropdown-menu">
-                    <li class="header">NOTIFICATIONS</li>
-                    <li class="body">
-                        <ul class="menu">
-                            <li> <a href="javascript:void(0);">
-                                <div class="icon-circle bg-light-green"><i class="zmdi zmdi-account-add"></i></div>
-                                <div class="menu-info">
-                                    <h4>Notification</h4>
-                                    <p> <i class="material-icons">access_time</i> Il y a 14 min</p>
-                                </div>
-                                </a> </li>
-                        </ul>
-                    </li>
-                    <li class="footer"> <a href="javascript:void(0);">Voir toutes les notifications</a> </li>
-                </ul>
-            </li>
-            <!-- #END# Notifications --> 
-        
-           
         </ul>
     </div>
 </nav>
-<!-- #Top Bar -->
 <section> 
-    <!-- Left Sidebar -->
     <aside id="leftsidebar" class="sidebar"> 
-        <!-- User Info -->
         <div class="user-info">
             <div class="admin-image"> <img src="assets/images/random-avatar7.jpg" alt=""> </div>
             <div class="admin-action-info"> <span>Bienvenue</span>
@@ -193,8 +155,6 @@
                 </ul>
             </div>
         </div>
-        <!-- #User Info --> 
-        <!-- Menu -->
         <div class="menu">
             <ul class="list">
                 <li class="header">Navigation</li>
@@ -308,9 +268,8 @@
                         <ul class="header-dropdown">
                             <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></a>
                                 <ul class="dropdown-menu float-right">
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                                    <li data-nom="médicament" data-method="add"><a href="javascript:void(0);" class=" waves-effect waves-block">Ajouter un médicament</a></li>
+                                    <li data-nom="médicament" data-method="mod"><a href="javascript:void(0);" class=" waves-effect waves-block">Modifier un médicament</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -342,9 +301,8 @@
                         <ul class="header-dropdown">
                             <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></a>
                                 <ul class="dropdown-menu float-right">
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                                    <li data-nom="client" data-method="add"><a href="javascript:void(0);" class=" waves-effect waves-block">Ajouter un client</a></li>
+                                    <li data-nom="client" data-method="mod"><a href="javascript:void(0);" class=" waves-effect waves-block">Modifier un client</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -376,9 +334,8 @@
                         <ul class="header-dropdown">
                             <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></a>
                                 <ul class="dropdown-menu float-right">
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                                    <li data-nom="employé" data-method="add"><a href="javascript:void(0);" class=" waves-effect waves-block">Ajouter un employé</a></li>
+                                    <li data-nom="employé" data-method="mod"><a href="javascript:void(0);" class=" waves-effect waves-block">Modifier un employé</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -410,9 +367,8 @@
                         <ul class="header-dropdown">
                             <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></a>
                                 <ul class="dropdown-menu float-right">
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                                    <li data-nom="fournisseur" data-method="add"><a href="javascript:void(0);" class=" waves-effect waves-block">Ajouter un fournisseur</a></li>
+                                    <li data-nom="fournisseur" data-method="mod"><a href="javascript:void(0);" class=" waves-effect waves-block">Modifier un fournisseur</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -487,40 +443,14 @@
             <small class="text-muted txt1">Liste de l'ensemble des médicaments enregistrés et leurs stocks</small>
         </div>
         <div class="row clearfix debutliste">
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="card all-patients">
-                    <div class="body">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-4 text-center m-b-0">
-                                <a href="#" class="p-profile-pix"><img src="assets/images/patients/random-avatar3.jpg" alt="user" class="img-thumbnail img-fluid"></a>
-                            </div>
-                            <div class="col-md-8 col-sm-8 m-b-0">
-                                <h5 class="m-b-0">Nom du médicament<a href="#" class="edit"><i class="zmdi zmdi-edit"></i></a><a href="#" class="edit"><i class="zmdi zmdi-delete"></i></a></h5> <small>Ajouté le 01/01/75</small>
-                                <address class="m-b-0">
-                                    En stock : NaN<br>
-                                </address>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
-
 </section>
 <div class="color-bg"></div>
-<!-- Jquery Core Js --> 
-<script src="assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
-<script src="assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
-
-<script src="assets/plugins/jquery-sparkline/jquery.sparkline.min.js"></script> <!-- Sparkline Plugin Js -->
-<script src="assets/plugins/chartjs/Chart.bundle.min.js"></script> <!-- Chart Plugins Js --> 
-
-<script src="assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js -->
+<script src="assets/bundles/libscripts.bundle.js"></script> 
+<script src="assets/bundles/vendorscripts.bundle.js"></script>
+<script src="assets/bundles/mainscripts.bundle.js"></script>
 <script src="assets/js/pages/index.js"></script>
-<script src="assets/js/pages/charts/sparkline.min.js"></script>
-<script src="assets/plugins/autosize/autosize.js"></script> <!-- Autosize Plugin Js --> 
-<script src="assets/plugins/momentjs/moment.js"></script> <!-- Moment Plugin Js -->
-<script src="assets/plugins/dropzone/dropzone.js"></script> <!-- Dropzone Plugin Js -->
+<script src="assets/plugins/autosize/autosize.js"></script>
 </body>
 </html>

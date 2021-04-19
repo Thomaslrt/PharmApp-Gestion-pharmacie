@@ -103,10 +103,6 @@ function getRandomData() {
 
 "use strict";
 
-$(function () {
-    new Chart(document.getElementById("line_chart").getContext("2d"), getChartJs('line'));
-});
-
 function getChartJs(type) {
     var config = null;
 

@@ -160,12 +160,18 @@ function recupererStock(obj_a_recuperer,div1,id1,id2) {
 }
 
 
+//Fonction qui permet d'obtenir la date actuelle au format dd/mm/YYYY
+function formattedDate(d = new Date) {
+	return [d.getDate(), d.getMonth()+1, d.getFullYear()]
+		.map(n => n < 10 ? `0${n}` : `${n}`).join('/');
+  }
+
 // Fonction qui gère l'affichage de l'ensemble des 4 listes.
-function listStock(obj_a_recuperer, valeurstock, valeur) {
+function listStock(obj_a_recuperer, valeurstock, valeur, phraseperso) {
 	updateStock();
 	[obj_a_recuperer].map((obj) => {  
 		for (var i=0 ; i < (Object.keys(obj).length) ; i++) {
-			$('.debutliste').append('<div class="col-lg-4 col-md-6 col-sm-12 carte_'+Object.keys(obj)[i]+'"><div class="card all-patients"><div class="body"><div class="row"><div class="col-md-4 col-sm-4 text-center m-b-0"><a href="#" class="p-profile-pix"><img src="assets/images/logo.png" class="img-thumbnail img-fluid"></a></div><div class="col-md-8 col-sm-8 m-b-0"><h5 class="m-b-0">'+Object.keys(obj)[i]+'<a href="#" data-nom="'+valeur+'" data-method="mod" class="edit" id="'+Object.keys(obj)[i]+'"><i class="zmdi zmdi-edit"></i></a><a href="#" class="delete" id="'+Object.keys(obj)[i]+'"><i class="zmdi zmdi-delete"></i></a></h5> <small>Ajouté le 01/01/75</small><address class="m-b-0">'+Object.values(obj)[i]+'<br></address></div></div></div></div></div>');
+			$('.debutliste').append('<div class="col-lg-4 col-md-6 col-sm-12 carte_'+Object.keys(obj)[i]+'"><div class="card all-patients"><div class="body"><div class="row"><div class="col-md-4 col-sm-4 text-center m-b-0"><a href="#" class="p-profile-pix"><img src="assets/images/logo.png" class="img-thumbnail img-fluid"></a></div><div class="col-md-8 col-sm-8 m-b-0"><h5 class="m-b-0">'+Object.keys(obj)[i]+'<a href="#" data-nom="'+valeur+'" data-method="mod" class="edit" id="'+Object.keys(obj)[i]+'"><i class="zmdi zmdi-edit"></i></a><a href="#" class="delete" id="'+Object.keys(obj)[i]+'"><i class="zmdi zmdi-delete"></i></a></h5> <small>Ajouté le '+formattedDate()+'</small><address class="m-b-0">'+phraseperso+' '+Object.values(obj)[i]+'<br></address></div></div></div></div></div>');
 		}
 	});
 	$('.debutliste').append('<div class="stock" style="display:none;" id="'+valeurstock+'"></div>')
@@ -248,6 +254,8 @@ $(document).ready(function(){
 		var page = $(this).data("nom");
 		var method = $(this).data("method");
 		if (page !== undefined) {
+			id1 = "";
+			id2 = "";
 			updateStock();
 			console.log(page);
 			$("li").removeClass("active");
@@ -398,13 +406,13 @@ $(document).ready(function(){
 					clientok = window.localStorage.getItem("clients");
 					$('.debutliste').html('');
 					if(medocsok !== null && page ==="médicament"){
-						listStock(stock, "stock", page);
+						listStock(stock, "stock", page, "Quantité en stock :");
 					} if(fournisseurok !== null && page ==="fournisseur"){
-						listStock(fournisseurs, "fournisseurs", page);
+						listStock(fournisseurs, "fournisseurs", page, "Adresse :");
 					} if(employeok !== null && page ==="employé"){
-						listStock(employes, "employes", page);
+						listStock(employes, "employes", page, "Poste de l'employé :");
 					} if(clientok !== null && page ==="client"){
-						listStock(clients, "clients", page);
+						listStock(clients, "clients", page, "Numéro de tél. :");
 					} if ($('.debutliste').html()=="") {
 							$('.debutliste').html('<div style="text-align:center;padding-bottom:50px;" class="col-md-12">Aucune donnée enregistrée pour le moment.</div>');
 							console.log("Aucune valeur présente dans l'objet demandé > Texte \"Aucune donnée\"")
