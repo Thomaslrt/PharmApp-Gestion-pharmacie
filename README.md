@@ -1,4 +1,4 @@
-#  [PROJET] Projet PharmApp - Application de gestion de pharmacie
+#  [PROJET] PharmApp - Gestion de pharmacie
 
 Le projet a été entièrement réalisé de zéro en JavaScript et CSS, combiné à [jQuery](https://jquery.com/download/)
 
