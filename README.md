@@ -4,7 +4,7 @@ Le projet a été entièrement réalisé de zéro en JavaScript et CSS, combiné
 
 ## Bases du projet
 
-Le projet avait pour vocation de réaliser une application permettant de gérer des stocks de médicament, des employés, fournisseurs et clients d'une pharmacie. Proposé dans le cadre d'une formation développeur web / web mobile, une contrainte y était attachée : réaliser l'ensemble du projet sans aucune base de données ni PHP, et en une seule page (donc seulement en Javascript).
+Le projet avait pour vocation de réaliser une application permettant de gérer des stocks de médicament, des employés, fournisseurs et clients d'une pharmacie. Proposé dans le cadre d'une formation développeur web / web mobile, une contrainte y était attachée : réaliser l'ensemble du projet sans aucune base de données ni PHP, et en une seule page (donc seulement en Javascript), avec un traitement des données depuis le localStorage.
 
 **Il s'agit donc d'un projet assez léger, combinant :**
 - L'utilisation de [jQuery](https://jquery.com/download/) afin d'animer les actions de l'utilisateur
