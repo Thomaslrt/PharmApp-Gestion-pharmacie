@@ -14,7 +14,7 @@ Le projet avait pour vocation de réaliser une application permettant de gérer 
 
 ## Utilisation
 
-L'utilisation du scrapper reste assez simple, il suffit de vous placer dans le dossier de votre choix et de cloner le projet depuis GitHub :
+Le projet étant assez simple, il suffit de vous placer dans le dossier de votre choix et de cloner le projet depuis GitHub :
 
     git clone https://github.com/Thomaslrt/PharmApp-Gestion-pharmacie
     
